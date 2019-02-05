@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres
+    restart: always
+    volumes:
+      - './db_data:/var/lib/postgresql/data'
+  graphql-engine:
+    image: hasura/graphql-engine:v1.0.0-alpha37
+    restart: always
+    ports:
+      - '9999:8080'
+    depends_on:
+      - 'postgres'
+    env_file: .hasura.env
+
